@@ -3,37 +3,36 @@ package com.example.sweater.domain;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity //аннотация для создания в БД таблицы по данным объектов класса
-@Table(name = "usr") //назвать таблицу не по-умолчанию user,а usr
+@Entity
+@Table(name = "usr")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String userName;
+    private Long id;
+    private String username;
     private String password;
     private boolean active;
 
     //аннотация для формирования доп таблицы для хранения enum.Fetch = жадная,либо ленивая подкгрузка данных.Жадная лучше, когда мало данных
-    @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id")) //описывает,что данное поле хранится в отдельное таблицы,не описывали mapping
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))// описывает,что данное поле хранится в отдельное таблицы,не описывали mapping
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -60,3 +59,5 @@ public class User {
         this.roles = roles;
     }
 }
+
+
